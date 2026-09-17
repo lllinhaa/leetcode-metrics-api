@@ -2,11 +2,11 @@
   "schema_version": 1,
   "site": "cn",
   "username": "u2xUlPQB2Z",
-  "updated_at": "2026-09-17T06:43:36Z",
+  "updated_at": "2026-09-17T07:01:09Z",
   "hot100": {
     "total": 100,
-    "solved": 4,
-    "percentage": 4.0
+    "solved": 16,
+    "percentage": 16.0
   },
   "categories": {
     "Backtracking": {
@@ -35,7 +35,7 @@
     },
     "Hashing": {
       "total": 4,
-      "solved": 0
+      "solved": 4
     },
     "Heap": {
       "total": 3,
@@ -51,7 +51,7 @@
     },
     "Sliding Window": {
       "total": 4,
-      "solved": 1
+      "solved": 4
     },
     "Stack": {
       "total": 5,
@@ -59,7 +59,7 @@
     },
     "Two Pointers": {
       "total": 4,
-      "solved": 0
+      "solved": 4
     },
     "Trie": {
       "total": 1,
@@ -67,7 +67,7 @@
     },
     "Misc": {
       "total": 10,
-      "solved": 3
+      "solved": 4
     }
   },
   "remaining": [
@@ -378,30 +378,6 @@
       "category": "Greedy"
     },
     {
-      "title": "Two Sum",
-      "slug": "two-sum",
-      "difficulty": "Easy",
-      "category": "Hashing"
-    },
-    {
-      "title": "Group Anagrams",
-      "slug": "group-anagrams",
-      "difficulty": "Medium",
-      "category": "Hashing"
-    },
-    {
-      "title": "Longest Consecutive Sequence",
-      "slug": "longest-consecutive-sequence",
-      "difficulty": "Medium",
-      "category": "Hashing"
-    },
-    {
-      "title": "Subarray Sum Equals K",
-      "slug": "subarray-sum-equals-k",
-      "difficulty": "Medium",
-      "category": "Hashing"
-    },
-    {
       "title": "Kth Largest Element in an Array",
       "slug": "kth-largest-element-in-an-array",
       "difficulty": "Medium",
@@ -528,24 +504,6 @@
       "category": "Matrix"
     },
     {
-      "title": "Longest Substring Without Repeating Characters",
-      "slug": "longest-substring-without-repeating-characters",
-      "difficulty": "Medium",
-      "category": "Sliding Window"
-    },
-    {
-      "title": "Minimum Window Substring",
-      "slug": "minimum-window-substring",
-      "difficulty": "Hard",
-      "category": "Sliding Window"
-    },
-    {
-      "title": "Find All Anagrams in a String",
-      "slug": "find-all-anagrams-in-a-string",
-      "difficulty": "Medium",
-      "category": "Sliding Window"
-    },
-    {
       "title": "Valid Parentheses",
       "slug": "valid-parentheses",
       "difficulty": "Easy",
@@ -574,30 +532,6 @@
       "slug": "daily-temperatures",
       "difficulty": "Medium",
       "category": "Stack"
-    },
-    {
-      "title": "Container With Most Water",
-      "slug": "container-with-most-water",
-      "difficulty": "Medium",
-      "category": "Two Pointers"
-    },
-    {
-      "title": "3Sum",
-      "slug": "3sum",
-      "difficulty": "Medium",
-      "category": "Two Pointers"
-    },
-    {
-      "title": "Trapping Rain Water",
-      "slug": "trapping-rain-water",
-      "difficulty": "Hard",
-      "category": "Two Pointers"
-    },
-    {
-      "title": "Move Zeroes",
-      "slug": "move-zeroes",
-      "difficulty": "Easy",
-      "category": "Two Pointers"
     },
     {
       "title": "Implement Trie (Prefix Tree)",
@@ -636,12 +570,6 @@
       "category": "Misc"
     },
     {
-      "title": "Product of Array Except Self",
-      "slug": "product-of-array-except-self",
-      "difficulty": "Medium",
-      "category": "Misc"
-    },
-    {
       "title": "Find the Duplicate Number",
       "slug": "find-the-duplicate-number",
       "difficulty": "Medium",
@@ -650,6 +578,12 @@
   ],
   "recent": {
     "submissions": [
+      {
+        "id": "749762380",
+        "title": "Product of Array Except Self",
+        "slug": "product-of-array-except-self",
+        "submitted_at": "2026-09-17T06:57:04Z"
+      },
       {
         "id": "749749363",
         "title": "Rotate Array",
@@ -733,25 +667,16 @@
         "title": "Sliding Window Maximum",
         "slug": "sliding-window-maximum",
         "submitted_at": "2026-09-17T01:56:51Z"
-      },
-      {
-        "id": "749695466",
-        "title": "Sliding Window Maximum",
-        "slug": "sliding-window-maximum",
-        "submitted_at": "2026-09-17T01:56:46Z"
       }
     ],
     "newly_observed_slugs": [
-      "maximum-subarray",
-      "merge-intervals",
-      "rotate-array",
-      "sliding-window-maximum"
+      "product-of-array-except-self"
     ]
   },
   "coverage": {
     "source": "public_recent_ac_with_local_history",
-    "is_complete": false,
-    "known_solved": 4,
-    "reported_solved": 15
+    "is_complete": true,
+    "known_solved": 16,
+    "reported_solved": 16
   }
 }

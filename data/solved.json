@@ -2,9 +2,21 @@
   "site": "cn",
   "username": "u2xUlPQB2Z",
   "solved_slugs": [
+    "3sum",
+    "container-with-most-water",
+    "find-all-anagrams-in-a-string",
+    "group-anagrams",
+    "longest-consecutive-sequence",
+    "longest-substring-without-repeating-characters",
     "maximum-subarray",
     "merge-intervals",
+    "minimum-window-substring",
+    "move-zeroes",
+    "product-of-array-except-self",
     "rotate-array",
-    "sliding-window-maximum"
+    "sliding-window-maximum",
+    "subarray-sum-equals-k",
+    "trapping-rain-water",
+    "two-sum"
   ]
 }
