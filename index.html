@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeetCode 刷题进度</title>
+<style>
+  :root {
+    --bg: #0b0f14;
+    --card: #131a22;
+    --card-2: #182029;
+    --line: #232c37;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --green: #3fb950;
+    --blue: #58a6ff;
+    --amber: #d29922;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 28px 18px 56px;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.6 -apple-system, "Segoe UI", "Microsoft YaHei", Roboto, sans-serif;
+  }
+  .wrap { max-width: 940px; margin: 0 auto; }
+  .top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  h1 { font-size: 20px; margin: 0; font-weight: 600; letter-spacing: .3px; }
+  .sub { color: var(--muted); font-size: 13px; }
+  .btn {
+    background: var(--card-2); color: var(--text); border: 1px solid var(--line);
+    border-radius: 8px; padding: 7px 14px; font-size: 13px; cursor: pointer;
+  }
+  .btn:hover { border-color: var(--blue); color: var(--blue); }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 20px 22px; margin-top: 18px;
+  }
+  .hero { display: flex; align-items: flex-end; gap: 22px; flex-wrap: wrap; }
+  .big { font-size: 46px; font-weight: 700; line-height: 1; letter-spacing: -1px; }
+  .big small { font-size: 22px; color: var(--muted); font-weight: 500; }
+  .pct { font-size: 22px; color: var(--green); font-weight: 600; }
+  .bar { height: 10px; border-radius: 6px; background: #1d242d; overflow: hidden; margin-top: 16px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, #2ea043, #56d364); }
+  .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .tag {
+    font-size: 12px; padding: 4px 10px; border-radius: 20px;
+    border: 1px solid var(--line); color: var(--muted); background: var(--card-2);
+  }
+  .tag.ok { color: var(--green); border-color: #1f6f36; }
+  .tag.warn { color: var(--amber); border-color: #6b4d10; }
+  h2 { font-size: 14px; color: var(--muted); font-weight: 600; margin: 0 0 14px; letter-spacing: .5px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+  .cat { background: var(--card-2); border: 1px solid var(--line); border-radius: 9px; padding: 11px 13px; }
+  .cat.done { border-color: #1f6f36; }
+  .cat-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .cat-name { font-size: 13px; }
+  .cat-num { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .cat.done .cat-num { color: var(--green); }
+  .cat .bar { height: 5px; margin-top: 9px; }
+  .cat .bar > i { background: var(--blue); }
+  .cat.done .bar > i { background: var(--green); }
+  ul.recent { list-style: none; margin: 0; padding: 0; }
+  ul.recent li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 9px 0; border-bottom: 1px solid var(--line);
+  }
+  ul.recent li:last-child { border-bottom: 0; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex: none; }
+  .r-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .r-slug { color: var(--muted); font-size: 12px; font-family: ui-monospace, Consolas, monospace; }
+  .r-time { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .r-count { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  #trend svg { width: 100%; height: 110px; display: block; }
+  .empty { color: var(--muted); font-size: 13px; }
+  .err { color: #f85149; font-size: 13px; }
+  footer { color: var(--muted); font-size: 12px; margin-top: 22px; text-align: center; }
+  footer a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>LeetCode 刷题进度</h1>
+      <div class="sub" id="who">读取中…</div>
+    </div>
+    <button class="btn" id="refresh">刷新</button>
+  </div>
+
+  <div class="card">
+    <div class="hero">
+      <div class="big" id="solved">—<small> / 100</small></div>
+      <div class="pct" id="pct"></div>
+    </div>
+    <div class="bar"><i id="hero-bar" style="width:0%"></i></div>
+    <div class="meta" id="meta"></div>
+  </div>
+
+  <div class="card">
+    <h2>分类进度</h2>
+    <div class="grid" id="cats"></div>
+  </div>
+
+  <div class="card">
+    <h2>最近提交</h2>
+    <ul class="recent" id="recent"></ul>
+  </div>
+
+  <div class="card">
+    <h2>成长曲线</h2>
+    <div id="trend"></div>
+  </div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script type="module">
+const BASE = "https://raw.githubusercontent.com/lllinhaa/leetcode-metrics-api/main/data";
+
+async function loadJson(path) {
+  const url = `${BASE}/${path}?t=${Date.now()}`;
+  const response = await fetch(url, { cache: "no-cache" });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return response.json();
+}
+
+const $ = id => document.getElementById(id);
+
+function fmtTime(iso) {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? iso : d.toLocaleString("zh-CN", { hour12: false });
+}
+
+function renderProgress(data) {
+  const { solved, total, percentage } = data.hot100;
+  $("solved").innerHTML = `${solved}<small> / ${total}</small>`;
+  $("pct").textContent = `${percentage}%`;
+  $("hero-bar").style.width = `${percentage}%`;
+  $("who").textContent = `${data.site === "cn" ? "力扣中国站" : "LeetCode 国际站"} · ${data.username}`;
+
+  const cov = data.coverage;
+  const tags = [
+    cov.is_complete
+      ? `<span class="tag ok">记录完整</span>`
+      : `<span class="tag warn">记录不完整：已知 ${cov.known_solved} / 上报 ${cov.reported_solved}</span>`,
+    `<span class="tag">总通过 ${cov.reported_solved} 题</span>`,
+    `<span class="tag">更新于 ${fmtTime(data.updated_at)}</span>`
+  ];
+  $("meta").innerHTML = tags.join("");
+}
+
+function renderCategories(categories) {
+  const rows = Object.entries(categories)
+    .map(([name, v]) => ({ name, ...v }))
+    .sort((a, b) => (b.solved / b.total) - (a.solved / a.total) || b.total - a.total);
+
+  $("cats").innerHTML = rows.map(r => {
+    const pct = r.total ? Math.round(r.solved / r.total * 100) : 0;
+    const done = r.solved === r.total ? " done" : "";
+    return `<div class="cat${done}">
+      <div class="cat-top"><span class="cat-name">${r.name}</span><span class="cat-num">${r.solved}/${r.total}</span></div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+    </div>`;
+  }).join("");
+}
+
+function renderRecent(submissions) {
+  const bySlug = new Map();
+  for (const s of submissions) {
+    const cur = bySlug.get(s.slug);
+    if (cur) { cur.count += 1; }
+    else { bySlug.set(s.slug, { ...s, count: 1 }); }
+  }
+  const list = [...bySlug.values()].sort((a, b) => b.submitted_at.localeCompare(a.submitted_at));
+
+  if (!list.length) {
+    $("recent").innerHTML = `<li class="empty">当前窗口内没有提交记录</li>`;
+    return;
+  }
+  $("recent").innerHTML = list.map(s => `<li>
+    <span class="dot"></span>
+    <span class="r-title">${s.title} <span class="r-slug">${s.slug}</span></span>
+    <span class="r-count">${s.count} 次</span>
+    <span class="r-time">${fmtTime(s.submitted_at)}</span>
+  </li>`).join("");
+}
+
+function renderTrend(snapshots) {
+  const points = snapshots
+    .filter(s => s && s.updated_at)
+    .map(s => ({ date: s.updated_at.slice(0, 10), solved: s.hot100.solved }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  if (points.length < 2) {
+    $("trend").innerHTML = `<div class="empty">目前只有 ${points.length} 个观测日，积累两天以上才会出现曲线。</div>`;
+    return;
+  }
+  const W = 900, H = 110, PAD = 6;
+  const max = Math.max(...points.map(p => p.solved), 1);
+  const min = Math.min(...points.map(p => p.solved), 0);
+  const span = Math.max(max - min, 1);
+  const x = i => PAD + i * (W - PAD * 2) / Math.max(points.length - 1, 1);
+  const y = v => H - PAD - (v - min) / span * (H - PAD * 2);
+  const line = points.map((p, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(p.solved).toFixed(1)}`).join(" ");
+  const area = `${line} L${x(points.length - 1).toFixed(1)},${H} L${x(0).toFixed(1)},${H} Z`;
+
+  $("trend").innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+    <path d="${area}" fill="rgba(63,185,80,.13)"></path>
+    <path d="${line}" fill="none" stroke="#3fb950" stroke-width="2" stroke-linejoin="round"></path>
+  </svg>
+  <div class="sub" style="margin-top:8px">${points[0].date} 起共 ${points.length} 个观测日，最高 ${max} 题</div>`;
+}
+
+async function render() {
+  try {
+    const progress = await loadJson("progress.json");
+    renderProgress(progress);
+    renderCategories(progress.categories);
+    renderRecent(progress.recent.submissions);
+
+    try {
+      const days = await loadJson("history/index.json");
+      const recentDays = days.slice(-30);
+      const snapshots = await Promise.all(recentDays.map(d => loadJson(`history/${d}.json`)));
+      renderTrend(snapshots);
+    } catch {
+      $("trend").innerHTML = `<div class="empty">历史快照暂时不可用。</div>`;
+    }
+  } catch (error) {
+    $("who").textContent = "读取失败";
+    $("meta").innerHTML = `<span class="err">无法读取数据：${error.message}</span>`;
+    console.error(error);
+  }
+}
+
+$("refresh").addEventListener("click", render);
+$("foot").innerHTML = `数据来自 <a href="https://github.com/lllinhaa/leetcode-metrics-api" target="_blank" rel="noopener">leetcode-metrics-api</a>，
+由 GitHub Actions 每天北京时间 10:17 自动更新。`;
+
+render();
+</script>
+</body>
+</html>
