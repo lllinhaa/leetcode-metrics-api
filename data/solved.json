@@ -3,7 +3,9 @@
   "username": "u2xUlPQB2Z",
   "solved_slugs": [
     "3sum",
+    "add-two-numbers",
     "container-with-most-water",
+    "copy-list-with-random-pointer",
     "find-all-anagrams-in-a-string",
     "first-missing-positive",
     "group-anagrams",
@@ -19,6 +21,7 @@
     "move-zeroes",
     "palindrome-linked-list",
     "product-of-array-except-self",
+    "remove-nth-node-from-end-of-list",
     "reverse-linked-list",
     "reverse-nodes-in-k-group",
     "rotate-array",
@@ -26,8 +29,10 @@
     "search-a-2d-matrix-ii",
     "set-matrix-zeroes",
     "sliding-window-maximum",
+    "sort-list",
     "spiral-matrix",
     "subarray-sum-equals-k",
+    "swap-nodes-in-pairs",
     "trapping-rain-water",
     "two-sum"
   ]
