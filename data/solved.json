@@ -16,6 +16,7 @@
     "longest-substring-without-repeating-characters",
     "maximum-subarray",
     "merge-intervals",
+    "merge-k-sorted-lists",
     "merge-two-sorted-lists",
     "minimum-window-substring",
     "move-zeroes",
